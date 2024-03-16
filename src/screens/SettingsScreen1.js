@@ -8,6 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 const SettingsScreen1 = () => {
   const navigation = useNavigation();
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Enhances readability
     alignItems: "center", // Centers content horizontally
-    paddingVertical: 50, // Adds vertical spacing
+    paddingVertical: 50,
   },
   container: {
     width: "80%", // Sets the width for the container
