@@ -10,7 +10,6 @@ const UserStack = () => {
   return (
     <UserStack.Navigator>
       <UserStack.Screen name="UserLogin" component={UserLoginScreen} />
-      <UserStack.Screen name="Home2" component={HomeScreen2} />
     </UserStack.Navigator>
   );
 };

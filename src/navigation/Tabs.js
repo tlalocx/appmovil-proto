@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackScreen from "../stacks/HomeStackScreen";
 import SettingsStackScreen from "../stacks/SettingsStackScreen";
 import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
+import UserStack from "../stacks/UserStack";
 
 const TabBarIcon = ({ name, color }) => {
   let iconName;
@@ -47,6 +48,7 @@ const Tabs = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeStackScreen} />
+      <Tab.Screen name="User" component={UserStack} />
       <Tab.Screen name="Settings" component={SettingsStackScreen} />
     </Tab.Navigator>
   );
