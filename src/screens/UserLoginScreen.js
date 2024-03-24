@@ -19,7 +19,6 @@ import {
 import app from "../../firebase"; // Assuming you've refactored firebase initialization to its own file
 
 const backgroundImageUrl = "https://source.unsplash.com/random/400x800?nature";
-const logo = require("../../assets/logo2.png"); // Assuming this is your logo
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -27,25 +26,43 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const auth = getAuth(app);
 
+  const navigateToWelcomeScreen = (userEmail) => {
+    navigation.navigate("UserWelcome", { email: userEmail });
+  };
+
   const handleCreateAccount = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log("Account created!");
-        navigation.navigate("HomeScreen1");
+        Alert.alert("Éxito", "¡Cuenta creada!", [
+          { text: "OK", onPress: () => navigateToWelcomeScreen(email) },
+        ]);
       })
       .catch((error) => {
-        Alert.alert("Error", error.message);
+        let errorMessage = "Se produjo un error al crear la cuenta.";
+        if (error.code === "auth/weak-password") {
+          errorMessage = "La contraseña es demasiado débil.";
+        } else if (error.code === "auth/email-already-in-use") {
+          errorMessage = "El correo electrónico ya está en uso.";
+        } else if (error.code === "auth/invalid-email") {
+          errorMessage = "El correo electrónico no es válido.";
+        }
+        Alert.alert("Error", errorMessage);
       });
   };
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log("Signed in!");
-        navigation.navigate("HomeScreen1");
+        Alert.alert("Éxito", "¡Inicio de sesión exitoso!", [
+          { text: "OK", onPress: () => navigateToWelcomeScreen(email) },
+        ]);
       })
       .catch((error) => {
-        Alert.alert("Error", error.message);
+        let errorMessage = "Se produjo un error al iniciar sesión.";
+        if (error.code === "auth/invalid-credential") {
+          errorMessage = "Nombre de usuario o contraseña inválidos.";
+        }
+        Alert.alert("Error", errorMessage);
       });
   };
 
@@ -74,10 +91,10 @@ const LoginScreen = () => {
             />
           </View>
           <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-            <Text style={styles.buttonText}>Sign In</Text>
+            <Text style={styles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
-            <Text style={styles.buttonText}>Create Account</Text>
+            <Text style={styles.buttonText}>Crear cuenta</Text>
           </TouchableOpacity>
         </BlurView>
       </ScrollView>

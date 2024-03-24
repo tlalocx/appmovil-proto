@@ -8,7 +8,11 @@ const SettingsStackScreen = () => {
   const SettingsStack = createNativeStackNavigator();
   return (
     <SettingsStack.Navigator>
-      <SettingsStack.Screen name="SettingsScreen" component={SettingsScreen1} />
+      <SettingsStack.Screen
+        name="SettingsScreen"
+        component={SettingsScreen1}
+        options={{ headerShown: false }}
+      />
       <SettingsStack.Screen name="InfoScreen" component={InfoScreen} />
     </SettingsStack.Navigator>
   );
